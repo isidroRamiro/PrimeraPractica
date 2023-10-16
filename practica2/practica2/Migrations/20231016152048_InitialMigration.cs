@@ -69,6 +69,26 @@ namespace practica2.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "materias",
+                columns: table => new
+                {
+                    Id_Materia = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Nombre = table.Column<string>(type: "text", nullable: false),
+                    Id_Doce = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_materias", x => x.Id_Materia);
+                    table.ForeignKey(
+                        name: "FK_materias_docentes_Id_Doce",
+                        column: x => x.Id_Doce,
+                        principalTable: "docentes",
+                        principalColumn: "Id_Doce",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_docentes_Id_uni",
                 table: "docentes",
@@ -78,15 +98,23 @@ namespace practica2.Migrations
                 name: "IX_estudiantes_Id_uni",
                 table: "estudiantes",
                 column: "Id_uni");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_materias_Id_Doce",
+                table: "materias",
+                column: "Id_Doce");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "docentes");
+                name: "estudiantes");
 
             migrationBuilder.DropTable(
-                name: "estudiantes");
+                name: "materias");
+
+            migrationBuilder.DropTable(
+                name: "docentes");
 
             migrationBuilder.DropTable(
                 name: "universidad");

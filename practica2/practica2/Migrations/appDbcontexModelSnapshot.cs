@@ -90,6 +90,28 @@ namespace practica2.Migrations
                     b.ToTable("estudiantes");
                 });
 
+            modelBuilder.Entity("practica2.model.Materia", b =>
+                {
+                    b.Property<int>("Id_Materia")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id_Materia"));
+
+                    b.Property<int>("Id_Doce")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id_Materia");
+
+                    b.HasIndex("Id_Doce");
+
+                    b.ToTable("materias");
+                });
+
             modelBuilder.Entity("practica2.model.universidad", b =>
                 {
                     b.Property<int>("Id_uni")
@@ -127,6 +149,17 @@ namespace practica2.Migrations
                         .IsRequired();
 
                     b.Navigation("universidad");
+                });
+
+            modelBuilder.Entity("practica2.model.Materia", b =>
+                {
+                    b.HasOne("practica2.model.docente", "docente")
+                        .WithMany()
+                        .HasForeignKey("Id_Doce")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("docente");
                 });
 #pragma warning restore 612, 618
         }
