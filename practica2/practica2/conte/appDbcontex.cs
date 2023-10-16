@@ -13,5 +13,6 @@ namespace practica2.conte
         public DbSet<estudiante> estudiantes { get; set; }
         public DbSet<docente> docentes { get; set; }
         public DbSet<universidad> universidad { get; set; }
+        public DbSet<Materia> materias { get; set; }
     }
 }
